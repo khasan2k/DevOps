@@ -1,62 +1,51 @@
+<p align="center">
+ <img src="https://github.com/kamrulhassanbd/DevOps/blob/main/Images/Picture1.png" style="margin: 50px 0px" width="100%">
+</p>
 
 ## What is Docker
 
-Docker is a software development tool and a virtualization technology that makes it easy to develop, deploy, and manage applications by using containers.
+ Docker is a software development tool and a virtualization technology that makes it easy to develop, deploy, and manage applications by using containers.
 
-	Docker is an open-source Centralized platform designed to Create, deploy and run applications
-	Docker uses container on the host OS to run applications. It allows applications to use the same Linux kernel as a system on the host computer, rather than creating a whole virtual OS
-	We can install docker on any OS but docker engine runs natively on Linux distribution
-	Docker written in go language
-	Docker is a tool that performs OS Level Virtualization, also known as containerization
-	Before docker, many users face the problem that a particular code is running in the developer’s system but not in this system
-	Docker was first release in March 2013. It is developed by Solomon Hykes and Sebastion Pohl
-	Docker is set of Platform as a service that uses OS level virtualization whereas VMware uses Hardware Level Virtualization
+✨ Docker is an open-source Centralized platform designed to Create, deploy and run applications  
+✨ Docker uses container on the host OS to run applications. It allows applications to use the same Linux kernel as a system on the host computer, rather than creating a whole virtual OS  
+✨ We can install docker on any OS but docker engine runs natively on Linux distribution  
+✨	Docker written in go language  
+✨	Docker is a tool that performs OS Level Virtualization, also known as containerization  
+✨	Before docker, many users face the problem that a particular code is running in the developer’s system but not in this system  
+✨	Docker was first release in March 2013. It is developed by Solomon Hykes and Sebastion Pohl  
+✨	Docker is set of Platform as a service that uses OS level virtualization whereas VMware uses Hardware Level Virtualization  
 
-Advantage of Docker:
-	No pre-allocation of RAM
-	CI efficiency > Docker enables you build a container image and use that same image across every step of deployment process
-	Less cost
-	Image is very light weight
-	It can run on physical H/W / Virtual H/W or on cloud
-	You can re-use the image
-	It takes very less time to run container
+### Advantage of Docker:  
+✨	No pre-allocation of RAM  
+✨	CI efficiency > Docker enables you build a container image and use that same image across every step of deployment process  
+✨	Less cost  
+✨	Image is very light weight  
+✨	It can run on physical H/W / Virtual H/W or on cloud  
+✨	You can re-use the image  
+✨	It takes very less time to run container  
 
-Container & Containerization
+## Container & Containerization
 Container refers to a lightweight, stand-alone, executable package of a piece of software that contains all the libraries, configuration files, dependencies, and other necessary parts to operate the application.
 Containerization is a system of intermodal freight transport using intermodal
 containers (also called shipping containers and ISO containers). Containerization is also referred as "Container Stuffing" or "Container Loading", which is the process of unitization of cargoes in exports.
 
-Container Architecture:
+### Container Architecture:
  
-Virtualization:
+### Virtualization:
 Virtualization is technology that lets you create useful IT services using resources that are traditionally bound to hardware. It allows you to use a physical machine’s full capacity by distributing its capabilities among many users or environments.
 
 Let’s Make Difference on Container & Virtualization:
 
 
-
-
-
-
-
-
- 
-
 Docker Architecture:
 
-
-
-
-
-ARCHITECTURE:
+### ARCHITECTURE:
 DOCKER CLIENT: it’s a way of interacting with docker (command -- > op)
 DOCKER DAEMON: it manages all the docker components (images, cont, volumes, nlw)
 DOCKER HOST: where we installed docker
 DOCKER REGISTRY: it manages all the docker images on internet.
-
-
  
-INSTALLATION:
+### INSTALLATION:
 For Virtualization:
 yum update -y
 yum install yum-utils device-mapper-persistent-data lvm2 wget telnet vim -y
@@ -69,13 +58,13 @@ systemctl status docker
 systemctl enable docker
 systemctl is-enabled docker
 
-For AWS:
+### For AWS:
 
 yum install docker -y
 systemctl start docker
 systemctl status docker
 
-Basic Commands:
+### Basic Commands:
 docker version					: Show Docker Version
 docker pull amazonlinux		 		: to download image
 docker run -it --name cont1 amazonlinux 	: to create container
@@ -87,14 +76,14 @@ docker ps 						: to see running containers
 docker ps -a						: to see all containers
 
 
-OS LEVEL VIRTUALIZATION:
+### OS LEVEL VIRTUALIZATION:
 NOTE: apt is package manager for ubuntu
 Redhat: Yum
 Ubuntu: Apt
 
 without running apt update -y we can’t install packages
 
-WORKING:
+### WORKING:
 docker pull ubuntu
 docker run -it --name cont1 ubuntu
 apt update -y
