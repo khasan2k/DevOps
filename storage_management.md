@@ -14,7 +14,7 @@ MBR (Master Boot Record) and GPT (GUID Partition Table) are two different partit
 
 - Extend the logical volumes (LVs): Expand your logical volumes to use the new space.
 
-**Steps to Extend an LVM Partition and Filesystem**
+## Steps to Create an LVM Partition and Filesystem
 
 **Steps 1:** List Block Devices\
 `sudo lsblk`
@@ -26,16 +26,67 @@ MBR (Master Boot Record) and GPT (GUID Partition Table) are two different partit
 `sudo fdisk -l /dev/sdb`
 
 **Steps 4:** Initialize a Partition as a Physical Volume\
-`sudo pvcreate /dev/sdb1`
-
-**Steps 5:** Display Information About Volume Groups\
-`sudo vgdisplay`
+`sudo pvcreate /dev/sdb`
 
 **Steps 6:** Display Information About Physical Volumes\
 `sudo pvdisplay`
 
+**Steps 7:** To create a volume group named vg1 using /dev/sdb\
+`sudo vgcreate vg1 /dev/sdb`
+
+**Steps 5:** Display Information About Volume Groups\
+`sudo vgdisplay`
+
+**Steps 7:** Create a Logical Volume with specific size\
+> The **-n option is used to indicate a name for the LV**, whereas **-L sets a fixed size** and **-l (lowercase L) is used to indicate a percentage of the remaining space** in the container VG.\
+   
+`sudo lvcreate -n vol_projects -L 10G vg1`\
+`sudo lvcreate -n vol_backups -l 100%FREE vg1` 
+
+**Steps 8:** Display Information About Logical Volumes\
+`sudo lvdisplay`
+
+**Steps 9:** Format the partition (sudo mkfs.ext4 /dev/sdb1).\
+`sudo mkfs.ext4 /dev/vg1/vol_projects`
+
+**Steps 10:** Resize the Filesystem on the Logical Volume\
+`sudo resize2fs /dev/vg1/vol_projects`
+
+**Steps 11:** Create a mount point (sudo mkdir /mnt/sdb_mount).\
+`sudo mkdir /mnt/sdb_mount`
+
+**Steps 12:** Mount the partition (sudo mount /dev/sdb1 /mnt/sdb_mount).\
+`sudo mount /dev/sdb1 /mnt/sdb_mount`
+
+**Steps 13:** Display Disk Usage\
+`sudo df -h`
+
+
+## Steps to Extend an LVM Partition and Filesystem
+
+**Steps 1:** List Block Devices\
+`sudo lsblk`
+
+**Steps 2:** Open Disk for Partitioning\
+`sudo fdisk /dev/sdb`
+
+**Steps 3:** List Partitions on the Disk\
+`sudo fdisk -l /dev/sdb`
+
+**Steps 4:** Initialize a Partition as a Physical Volume\
+`sudo pvcreate /dev/sdb`
+
+**Steps 6:** Display Information About Physical Volumes\
+`sudo pvdisplay`
+
+To create a volume group named vg1 using /dev/sdb
+`vgcreate vg1 /dev/sdb`
+
+**Steps 5:** Display Information About Volume Groups\
+`sudo vgdisplay`
+
 **Steps 7:** Extend an Existing Volume Group\
-`sudo vgextend vg0 /dev/sdb1`
+`sudo vgextend vg0 /dev/sdb` 
 
 **Steps 8:** Display Information About Logical Volumes\
 `sudo lvdisplay`
