@@ -125,7 +125,7 @@ Each file or directory has three basic permission types:
 - **write** - **w** – The Write permissions refer to a user’s capability to write or modify a file or directory.
 - **execute** - **x** – The Execute permission affects a user’s capability to execute a file or view the contents of a directory.
 
-Using Binary References to Set permissions
+#### Using Binary References to Set permissions
 | Binary Reference | Meaning |
 |------------------|---------|
 | `4`              | Read    |
@@ -136,18 +136,16 @@ Using Binary References to Set permissions
 - 2 represents write permission.
 - 1 represents execute permission.
 
-For example, the octal value 764 can be broken down as follows:
+#### For example, the octal value 764 can be broken down as follows:
 
 - 7 (Owner): Read (4) + Write (2) + Execute (1)
 - 6 (Group): Read (4) + Write (2)
 - 4 (Others): Read (4)
 
 ![Permission Details](/Images/linux-permission-details.png)
-![Permission ](/image/linux-permission-details.png)
 
-
-Set owner have full permission group and other users has only read and execute permission.\
+#### Set owner have full permission group and other users has only read and execute permission.\
 `chmod 755 file-name`
 
-Set execute permission for the owner only.\
+#### Set execute permission for the owner only.\
 `chmod u+x your_script.sh`
