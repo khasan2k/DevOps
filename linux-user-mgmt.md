@@ -142,7 +142,7 @@ For example, the octal value 764 can be broken down as follows:
 - 6 (Group): Read (4) + Write (2)
 - 4 (Others): Read (4)
 
-![Permission Details](/image/linux-permission-details.png)
+![Permission Details](/Images/linux-permission-details.png)
 ![Permission ](/image/linux-permission-details.png)
 
 
