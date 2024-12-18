@@ -8,15 +8,36 @@
 - [ ] Watch tutorials or read books like The Phoenix Project.
 - [ ] Tools to explore: GitHub, Jenkins (introduction).
 
-### Week 2: Linux Basics
-- [ ] Learn Linux file system, permissions, and process management.
-- [ ] Practice essential commands (ls, cd, grep, chmod).
-- [ ] Learn Linux file system hierarchy.
-- [ ] Practice basic commands:
-  - [ ] file navigation (ls, cd)
-  - [ ] file manipulation (cat, cp, mv, rm)
-  - [ ] permissions (chmod, chown).
-- [ ] Understand process management: ps, top, kill, cron.
+### Week 2: Linux Basic
+- [ ] History of Linux
+- [ ] Why Linux is so
+- [ ] Linux for DevOps
+- [ ] Linux distributions (Distros)
+- [ ] Kernel space and user space
+- [ ] Working with Linux filesystems and hierarchy
+- [ ] Install Linux Server and Desktop
+- [ ] Linux Package Management
+- [ ] Introduction to Shell
+- [ ] Logging into local & Remote consoles
+- [ ] Linux basic operations
+- [ ] Linux most Essential Command
+- [ ] Introduce Linux shell scripting
+- [ ] Linux Storage Management
+- [ ] Linux User, Group and Permissions
+- [ ] Linux networking
+- [ ] Network troubleshooting
+- [ ] Firewalls Configuration
+- [ ] SSH servers and clients Configure
+- [ ] SSH Key based authentication
+- [ ] HTTP server configuration
+- [ ] Nginx web server configuration
+- [ ] Nginx reverse proxy configuration
+- [ ] MySQL database server configuration
+- [ ] MongoDB and PostgreSQL server configuration
+- [ ] Static application hosting
+- [ ] Dynamic application hosting with databases
+- [ ] SSL/TLS configuration
+- [ ]    Security
 
 ### Week 3: Shell Scripting
 - [ ] Write basic scripts: automating backups, monitoring disk usage.
