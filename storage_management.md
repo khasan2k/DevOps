@@ -14,7 +14,7 @@ MBR (Master Boot Record) and GPT (GUID Partition Table) are two different partit
 
 - Extend the logical volumes (LVs): Expand your logical volumes to use the new space.
 
-## Steps to Create an LVM Partition and Filesystem
+## Steps to Create a new LVM Partition and Filesystem
 
 **Steps 1:** List Block Devices\
 `sudo lsblk`
