@@ -37,8 +37,8 @@ MBR (Master Boot Record) and GPT (GUID Partition Table) are two different partit
 **Steps 5:** Display Information About Volume Groups\
 `sudo vgdisplay`
 
-**Steps 7:** Create a Logical Volume with specific size\
-> The **-n option is used to indicate a name for the LV**, whereas **-L sets a fixed size** and **-l (lowercase L) is used to indicate a percentage of the remaining space** in the container VG.\
+**Steps 7:** Create a Logical Volume with specific size
+> The **-n option is used to indicate a name for the LV**, whereas **-L sets a fixed size** and **-l (lowercase L) is used to indicate a percentage of the remaining space** in the container VG.
    
 `sudo lvcreate -n vol_projects -L 10G vg1`\
 `sudo lvcreate -n vol_backups -l 100%FREE vg1` 
