@@ -70,11 +70,6 @@ systemctl is-enabled docker
 ```
 
 #### For AWS:
-```
-yum install docker -y   
-systemctl start docker   
-systemctl status docker
-```
 #### Install Docker in Redhat
 ```
 sudo dnf -y install dnf-plugins-core
