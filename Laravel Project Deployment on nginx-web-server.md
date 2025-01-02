@@ -2,6 +2,7 @@
 
 ### 1. Step 1: Installing Nginx
  Update our local package index so that we have access to the most recent package listings. Afterwards, we can install `nginx`.
+ 
 	```
 	sudo apt update
 	sudo apt install nginx
