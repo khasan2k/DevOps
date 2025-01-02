@@ -64,6 +64,7 @@
 	SELECT user, host FROM mysql.user;
 	flush privileges;
 	exit
+ 	composer update -y
 	```
 
 ### 5. Steps 5: Create a server block with the correct directives. Instead of modifying the default configuration file directly.
