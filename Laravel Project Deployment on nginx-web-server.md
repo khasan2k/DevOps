@@ -11,12 +11,13 @@
  ```
 ### 2. Step 2: Clone Project from github in `/var/www/`
 ```
- 	git clone https://github.com/asifanamkhan/newsbox-nub
+	git clone https://github.com/asifanamkhan/newsbox-nub
 ```
 ### 3. Step 3: Install PHP and Composer.
 ```
 	sudo add-apt-repository ppa:ondrej/php -y
 	sudo apt -y install php -y
+	sudo apt-get install php-curl php-xml php-mysql php-mbstring -y
  	php -v
 ```
 #### Composer
@@ -26,15 +27,16 @@
 	php composer-setup.php
 	php -r "unlink('composer-setup.php');"
 	sudo mv composer.phar /usr/local/bin/composer
+	composer
  ```
 
 ### 4. Step 4: Setup Mysql Server.
 #### 4.1 Install MySQL
  ```
-	 sudo apt install mysql-server -y
-  	 sudo apt install mysql-server -y
-   	 sudo systemctl start mysql
-   	 sudo systemctl start mysql
+  	sudo apt install mysql-server -y
+   	sudo systemctl start mysql
+ 	sudo systemctl enable mysql
+	sudo systemctl status mysql
 ```
 #### 4.2 Secure Database
   ``` 
@@ -65,20 +67,22 @@
 	SELECT user, host FROM mysql.user;
 	flush privileges;
 	exit
+	sudo systemctl restart mysql
 ```
 ### 5. Step 5: Synchronize database schema to laravel application
 
-**To confirm that the.env file and the Laravel application are in sync, use the command below.**
+To confirm that the.env file and the Laravel application are in sync, use the command below.
 ```
   	php artisan migrate:refresh --seed
-   	composer update -y
+   	composer update --no-scripts
 ```
 
-### 5. Steps 5: Create a server block with the correct directives. Instead of modifying the default configuration file directly.
-`sudo vim /etc/nginx/sites-available/nasir.xyz`
+### 6. Steps 6: Create a server block with the correct directives. Instead of modifying the default configuration file directly.
+`sudo vim /etc/nginx/sites-available/hasan.xyz`
 
+#### Add this into hasan.xyz
+change root `listen 80` `/var/www/nasir.xyz;` `fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;`
 ```
-	### Add this into nasir.xyz
 	#
 	server {
 		 listen 80;
@@ -124,19 +128,22 @@
 		 deny all;
 		 }
 	}
-
 ```
-### 6. Steps 6: Enable the file by creating a link from it to the `sites-enabled` directory, which Nginx reads from during startup.
+ ### Get Permission on /storage folder
+```
+    	sudo chown -R www-data:root storage/
+```
+### 7. Steps 7: Enable the file by creating a link from it to the `sites-enabled` directory, which Nginx reads from during startup.
 
 	`sudo ln -s /etc/nginx/sites-available/nasir.xyz /etc/nginx/sites-enabled/`
 
-### 7. Steps 7: Test to make sure that there are no syntax errors in any of your Nginx files and restart server.
+### 8. Steps 8: Test to make sure that there are no syntax errors in any of your Nginx files and restart server.
 ```
 	sudo nginx -t
 	sudo nginx -s reload
 	sudo systemctl restart nginx
 ```
-### 8. Steps 8: 
+### 9. Steps 9: 
 
 	- Insert A & CNAME record in your **domain** and Server **Public IP**
 	- Adjusting your Firewall
@@ -149,12 +156,9 @@
  ```
   	sudo service apache2 stop
    	sudo apt-get purge apache2 apache2-utils apache2.2-bin apache2-common
-	sudo apt-get autoremove --purge
+	sudo apt-get purge apache2
  	sudo apt remove apache2*
  	sudo rm -Rf /etc/apache2 /usr/lib/apache2 /usr/include/apache2
-  	sudo apt autoremove
+  	sudo apt-get autoremove --purge
  ```
-   ### Get Permission on /storage folder
-   ```
-    	sudo chown -R www-data:root storage/
-   ```
+ 
