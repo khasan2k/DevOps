@@ -28,14 +28,14 @@
  	```
 
 ### 4. Step 4: Setup Mysql Server.
-#### 3.1 Install MySQL
+#### 4.1 Install MySQL
  	 ```
 	 sudo apt install mysql-server -y
   	 sudo apt install mysql-server -y
    	 sudo systemctl start mysql
    	 sudo systemctl start mysql
 	 ```
-#### 3.2 Secure Database
+#### 4.2 Secure Database
   	``` 
    	sudo mysql_secure_installation 
     	```
@@ -52,7 +52,7 @@
 🔷 **Remove test database and access to it?**: `Enter Y` to delete the MySQL test databases.\
 🔷 **Reload privilege tables now?**: `Enter Y` to refresh the MySQL privilege tables and apply your new configuration changes. 
 
-#### 3.3 Access MySQL
+#### 4.3 Access MySQL
 ##### Copy Database name from `/var/www/project_name/.env` & update `databese username` and `password` 
 	```
 	sudo mysql -u root -p
@@ -64,7 +64,13 @@
 	SELECT user, host FROM mysql.user;
 	flush privileges;
 	exit
- 	composer update -y
+	```
+### 5. Step 5: Synchronize database schema to laravel application
+
+**To confirm that the.env file and the Laravel application are in sync, use the command below.**
+	```
+  	php artisan migrate:refresh --seed
+   	composer update -y
 	```
 
 ### 5. Steps 5: Create a server block with the correct directives. Instead of modifying the default configuration file directly.
