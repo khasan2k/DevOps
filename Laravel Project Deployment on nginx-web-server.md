@@ -73,8 +73,12 @@
 
 To confirm that the.env file and the Laravel application are in sync, use the command below.
 ```
-  	php artisan migrate:refresh --seed
-   	composer update --no-scripts
+	composer update --no-scripts
+	php artisan migrate:refresh --seed
+```
+ ### Get Permission on /storage folder
+```
+    	sudo chown -R www-data:root storage/
 ```
 
 ### 6. Steps 6: Create a server block with the correct directives. Instead of modifying the default configuration file directly.
@@ -129,13 +133,10 @@ change root `listen 80` `/var/www/nasir.xyz;` `fastcgi_pass unix:/var/run/php/ph
 		 }
 	}
 ```
- ### Get Permission on /storage folder
-```
-    	sudo chown -R www-data:root storage/
-```
+
 ### 7. Steps 7: Enable the file by creating a link from it to the `sites-enabled` directory, which Nginx reads from during startup.
 
-	`sudo ln -s /etc/nginx/sites-available/nasir.xyz /etc/nginx/sites-enabled/`
+`sudo ln -s /etc/nginx/sites-available/nasir.xyz /etc/nginx/sites-enabled/`
 
 ### 8. Steps 8: Test to make sure that there are no syntax errors in any of your Nginx files and restart server.
 ```
