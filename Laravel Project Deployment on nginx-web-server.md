@@ -16,7 +16,7 @@
 ### 3. Step 3: Install PHP and Composer.
 ```
 	sudo add-apt-repository ppa:ondrej/php -y
-	sudo apt -y install php -y
+	sudo apt install php -y
 	sudo apt-get install php-curl php-xml php-mysql php-mbstring -y
  	php -v
 ```
@@ -73,8 +73,8 @@
 
 To confirm that the.env file and the Laravel application are in sync, use the command below.
 ```
-	composer update --no-scripts
-	php artisan migrate:refresh --seed
+	sudo composer update --no-scripts
+	sudo php artisan migrate:refresh --seed
 ```
  ### Get Permission on /storage folder
 ```
