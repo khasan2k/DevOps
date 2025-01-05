@@ -74,6 +74,20 @@
     **All Done!!!!!!!!! 🚀💥**
 
 
+  AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+  sudo nano /etc/apache2/apache2.conf
+  
+Add a line containing ServerName 127.0.0.1 to the end of the file:
+
+/etc/apache2/apache2.conf
+. . .
+# Include the virtual host configurations:
+IncludeOptional sites-enabled/*.conf
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+ServerName 127.0.0.1
+
+
  
 
 
