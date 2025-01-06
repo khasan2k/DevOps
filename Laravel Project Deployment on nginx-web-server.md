@@ -87,51 +87,51 @@ To confirm that the.env file and the Laravel application are in sync, use the co
 #### Add this into hasan.xyz
 change root `listen 80` `/var/www/nasir.xyz;` `fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;`
 ```
-	#
-	server {
-		 listen 80;
-		 listen [::]:80;
-		 
-		 root /var/www/nasir.xyz;
+#
+server {
+	 listen 80;
+	 listen [::]:80;
+	 
+	 root /var/www/nasir.xyz;
 
-		 # Add index.php to the list if you are using PHP
+	 # Add index.php to the list if you are using PHP
 
-		 index index.html index.htm index.php;
+	 index index.html index.htm index.php;
 
-		 server_name nasir.xyz www.nasir.xyz;
+	 server_name nasir.xyz www.nasir.xyz;
 
-		 access_log /var/log/nginx/nasir.xyz.access.log;
-		 error_log /var/log/nginx/nasir.xyz.error.log;
+	 access_log /var/log/nginx/nasir.xyz.access.log;
+	 error_log /var/log/nginx/nasir.xyz.error.log;
 
-		 location ~ \.php$ {
-			include snippets/fastcgi-php.conf;
-			fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
-		 }
-		 location / {
-			#limit_conn concurrent 5;
-			#limit_req zone=mylimit burst=5 nodelay;
-			try_files $uri $uri/ /index.php?$args;
-		 }
-		  
-		 #Client Side Cashing Configuration
-		 location ~* \.(js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|rtf|swf|ico|flv|txt|woff|woff2|svg)$ {
-		 expires 90d;
-		 add_header Pragma public;
-		 add_header Cache-Control public;
-		 add_header Vary Accept-Encoding;
-		 }
-		 location @/ {
-		 rewrite ^/(.+)$ /index.php?_route_=$1 last;
-		 }
-		 # Block a single IP address
-		 #deny 103.120.35.2;
-		 location ~ /\.env {
-		 deny all;
-		 }
-		 location ~ /\. {
-		 deny all;
-		 }
-	}
+	 location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+	 }
+	 location / {
+		#limit_conn concurrent 5;
+		#limit_req zone=mylimit burst=5 nodelay;
+		try_files $uri $uri/ /index.php?$args;
+	 }
+	  
+	 #Client Side Cashing Configuration
+	 location ~* \.(js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|rtf|swf|ico|flv|txt|woff|woff2|svg)$ {
+	 expires 90d;
+	 add_header Pragma public;
+	 add_header Cache-Control public;
+	 add_header Vary Accept-Encoding;
+	 }
+	 location @/ {
+	 rewrite ^/(.+)$ /index.php?_route_=$1 last;
+	 }
+	 # Block a single IP address
+	 #deny 103.120.35.2;
+	 location ~ /\.env {
+	 deny all;
+	 }
+	 location ~ /\. {
+	 deny all;
+	 }
+}
 ```
 
 ### 7. Steps 7: Enable the file by creating a link from it to the `sites-enabled` directory, which Nginx reads from during startup.
