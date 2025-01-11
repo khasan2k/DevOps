@@ -15,7 +15,7 @@ http://server_ip_address
    ```
 ### 2. Step 2: Clone Project from github in `/var/www/`
 ```
-	git clone https://github.com/asifanamkhan/newsbox-nub
+git clone https://github.com/asifanamkhan/newsbox-nub
 ```
 ### 3. Step 3: Install PHP and Composer.
 ```
@@ -69,12 +69,17 @@ flush privileges;
 exit
 sudo systemctl restart mysql
 ```
+#### Import database manually
+```
+use `database_name`;
+source `location/database_file`;
+```
 ### 5. Step 5: Synchronize database schema to laravel application
 
 **To confirm that the.env file and the Laravel application are in sync, use the command below.**
 ```
-	sudo composer update --no-scripts
-	sudo php artisan migrate:refresh --seed
+sudo composer update --no-scripts
+sudo php artisan migrate:refresh --seed
 ```
  ### Get Permission on /storage folder
 ```
@@ -102,15 +107,15 @@ sudo vim /etc/apache2/sites-available/cloudopsschool.com.conf
 
 ### 7. `Steps 7: Enable the File and Reload Apache.` Enable the file by creating a link from it to the sites-enabled directory, which Apache reads from during startup.
 ```bash
-    sudo a2ensite cloudopsschool.com.conf
-    sudo systemctl reload apache2
+sudo a2ensite cloudopsschool.com.conf
+sudo systemctl reload apache2
 ```
 
 ### 7. `Steps 7: Test and Restart Apache.` Test to make sure that there are no syntax errors in any of your Apache files and restart the server.
 ```bash
-    sudo apache2ctl configtest
-    sudo apachectl -k graceful
-    sudo systemctl restart apache2
+sudo apache2ctl configtest
+sudo apachectl -k graceful
+sudo systemctl restart apache2
 ```
 
 ### 8. `Steps 7: Additional Configuration`
