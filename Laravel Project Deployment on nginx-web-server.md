@@ -1,4 +1,4 @@
-# How To Deploy Laravel Project using Nginx Server on Ubuntu 24.04
+# Nginx Web Server Configuration on Ubuntu 24.04
 
 ### 1. Step 1: Installing Nginx
  Update our local package index so that we have access to the most recent package listings. Afterwards, we can install `nginx`.
@@ -13,22 +13,6 @@
 ```
 	git clone https://github.com/asifanamkhan/newsbox-nub
 ```
-### 3. Step 3: Install PHP and Composer.
-```
-	sudo add-apt-repository ppa:ondrej/php -y
-	sudo apt install php -y
-	sudo apt-get install php-curl php-xml php-mysql php-mbstring -y
- 	php -v
-```
-#### Composer
- ```
-  	sudo php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-	php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer 	corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-	sudo php composer-setup.php
-	sudo php -r "unlink('composer-setup.php');"
-	sudo mv composer.phar /usr/local/bin/composer
-	composer
- ```
 
 ### 4. Step 4: Setup Mysql Server.
 #### 4.1 Install MySQL
@@ -152,14 +136,26 @@ server {
 
 	All done!!!!!!!!! 🚀💥
 
+
+ # Laravel Project Deployment
+ ### 3. Step 3: Install PHP and Composer.
+```
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt install php -y
+sudo apt-get install php-curl php-xml php-mysql php-mbstring -y
+php -v
+```
+#### Composer
+ ```
+sudo php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer 	corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+sudo php composer-setup.php
+sudo php -r "unlink('composer-setup.php');"
+sudo mv composer.phar /usr/local/bin/composer
+composer
+ ```
+
+ 
  # Important but not on the list
- ### Uninstall Apache2
- ```
-  	sudo service apache2 stop
-   	sudo apt-get purge apache2 apache2-utils apache2.2-bin apache2-common
-	sudo apt-get purge apache2
- 	sudo apt remove apache2*
- 	sudo rm -Rf /etc/apache2 /usr/lib/apache2 /usr/include/apache2
-  	sudo apt-get autoremove --purge
- ```
+
  
