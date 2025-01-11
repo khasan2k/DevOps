@@ -157,140 +157,92 @@ server {
 
 # React Node js Project Deployment
 
-### 1. Step 1: Install Nodejs
-```
-sudo npm install
-sudo npm start
-```
-**OR**
-```
-sudo npm run build
-```
 ### 1. Frontend (React) Deployment Commands
-Build and Serve the React Application:
+#### Build and Serve the React Application:
 Navigate to the React Project Directory:
 ```
 Copy code
 cd /path-to-your-react-app
 ```
-##### Install Dependencies (if not already installed):
+#### Install Dependencies (if not already installed):
 
 ```bash
-Copy code
 npm install
 ```
-##### Build the React Application:
+#### Build the React Application:
 
 ```bash
-Copy code
 npm run build
 ```
-##### Move the Build Files to the Server's Public Directory:
+#### Set Permissions:
 
 ```bash
-Copy code
-sudo mv build /var/www/react-app
-```
-##### Set Permissions:
-
-```bash
-Copy code
 sudo chown -R www-data:www-data /var/www/react-app
 sudo chmod -R 755 /var/www/react-app
 ```
+
 ### 2. Backend (Node.js) Deployment Commands
-Install and Run the Node.js Application:
+#### Install and Run the Node.js Application:
 Navigate to the Node.js Project Directory:
 
 ```bash
-Copy code
 cd /path-to-your-node-app
 ```
-##### Install Dependencies:
+#### Install Dependencies:
 
 ```bash
-Copy code
 npm install
 ```
-##### Test the Application:
+#### Test the Application:
 
 ```bash
-Copy code
 node server.js
 ```
-Replace server.js with your application's entry point file.
+**Replace server.js with your application's entry point file.**
 Ensure it runs correctly and listens on the expected port (e.g., 3000).
-Use PM2 to Manage the Node.js App: Install PM2 globally if not already installed:
+
+### Use PM2 to Manage the Node.js App: Install PM2 globally if not already installed:
 
 ```bash
-Copy code
 sudo npm install -g pm2
 ```
-Start your Node.js application with PM2:
+#### Start your Node.js application with PM2:
 
 ```bash
-Copy code
 pm2 start server.js --name node-app
 ```
-Save the PM2 process list to ensure it starts on reboot:
+#### Save the PM2 process list to ensure it starts on reboot:
 
 ```bash
-Copy code
 pm2 save
 ```
-Set PM2 to start on system boot:
+#### Set PM2 to start on system boot:
 
 ```bash
-Copy code
 pm2 startup
 ```
-3. Nginx Configuration
-Set up Nginx to serve the React app and proxy API requests to the Node.js backend.
 
-Edit or Create Nginx Config File:
-
-```bash
-Copy code
-sudo nano /etc/nginx/sites-available/react-node-app
-```
-Use the Nginx configuration provided earlier in this conversation.
-
-Enable the Configuration:
-
-```bash
-Copy code
-sudo ln -s /etc/nginx/sites-available/react-node-app /etc/nginx/sites-enabled/
-sudo nginx -t  # Test for syntax errors
-sudo systemctl restart nginx
-```
-4. Verify Deployment
+### 3. Verify Deployment
 Frontend: Open a browser and go to:
 ```
-arduino
-Copy code
 http://your-server-ip/
 ```
-or
+**or**
 ```
-arduino
-Copy code
 http://localhost/
 ```
-Backend API: Test the API endpoint in the browser or via curl:
+#### Backend API: Test the API endpoint in the browser or via curl:
 
 ```bash
-Copy code
 curl http://your-server-ip/api/some-endpoint
 ```
-5. Debugging
-Check Nginx logs for errors:
+### 5. Debugging
+#### Check Nginx logs for errors:
 ```bash
-Copy code
 sudo tail -f /var/log/nginx/error.log
 ```
-Check PM2 logs for Node.js errors:
+#### Check PM2 logs for Node.js errors:
 ```bash
-Copy code
 pm2 logs node-app
 ```
 
