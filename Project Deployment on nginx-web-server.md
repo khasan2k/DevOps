@@ -161,7 +161,9 @@ server {
 ```
 sudo npm install
 sudo npm start
-**or**
+```
+**OR**
+```
 sudo npm run build
 ```
 
