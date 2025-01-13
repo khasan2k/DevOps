@@ -246,4 +246,7 @@ sudo tail -f /var/log/nginx/error.log
 pm2 logs node-app
 ```
 
+# Important but not on the list
+### Unlink  
+sudo unlink /etc/nginx/sites-enabled/default
  
