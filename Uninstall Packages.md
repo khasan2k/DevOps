@@ -13,3 +13,12 @@ sudo apt remove apache2*
 sudo rm -Rf /etc/apache2 /usr/lib/apache2 /usr/include/apache2
 sudo apt-get autoremove --purge
  ```
+
+### Uninstall mysql
+```
+sudo systemctl stop mysql
+sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+sudo rm -rf /etc/mysql /var/lib/mysql
+sudo apt autoremove
+sudo apt autoclean
+```
