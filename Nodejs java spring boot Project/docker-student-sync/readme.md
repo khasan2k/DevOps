@@ -64,10 +64,10 @@ ExecStart=/usr/local/jdk-18/bin/java -jar /var/www/html/student-0.0.1-SNAPSHOT.j
 [Install]
 WantedBy=multi-user.target
 ```
-`sudo systemctl daemon-reload`
-`sudo systemctl enable lendingapp.service`
-`sudo systemctl start lendingapp.service`
-`sudo systemctl status lendingapp.service`
+`sudo systemctl daemon-reload`   
+`sudo systemctl enable lendingapp.service`   
+`sudo systemctl start lendingapp.service`   
+`sudo systemctl status lendingapp.service`   
 
 
 ## Step 6: Run and Build Frontend
