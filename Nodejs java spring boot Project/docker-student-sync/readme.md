@@ -1,10 +1,7 @@
 
-
 # Traditinal Deployment
 
-
 ## Step 1: Install MySQL 8 Database and Database and User for backend app
-
 
 ```bash
 CREATE DATABASE studentdb;
@@ -30,9 +27,9 @@ mvn -v
 ```
 ## Step 4: Build the Backend Application
 
-God to backend project directory and run `mvn clean install -DskipTests`
-mvn clean package
-after making .jar file move your jar file to  "mv student-0.0.1-SNAPSHOT.jar /var/www/html"
+God to backend project directory and run `mvn clean install -DskipTests`  
+`mvn clean package`   
+after making .jar file run your jar file to `sudo java -jar student-0.0.1-SNAPSHOT.jar`
 
 
 
@@ -66,15 +63,10 @@ ExecStart=/usr/local/jdk-18/bin/java -jar /var/www/html/student-0.0.1-SNAPSHOT.j
 
 [Install]
 WantedBy=multi-user.target
-
 ```
-
 `sudo systemctl daemon-reload`
-
 `sudo systemctl enable lendingapp.service`
-
 `sudo systemctl start lendingapp.service`
-
 `sudo systemctl status lendingapp.service`
 
 
@@ -98,4 +90,6 @@ sudo ln -s /etc/nginx/sites-available/docker-student.io /etc/nginx/sites-enabled
 sudo systemctl restart nginx
 ```
 
-/var/www/docker-student-sync/student-fe/src/app/service$ sudo vim student.service.ts
+## Step 8: Update IP address for backend
+`cd /var/www/docker-student-sync/student-fe/src/app/service$ sudo vim student.service.ts`
+`const BASIC_URL = ["http://192.168.119.129:8080/"]`   
