@@ -14,43 +14,26 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-## Step 2: Install OpenJDK 18 or Higher
+## Step 2: Install OpenJDK 21 or Higher
 
-Install OpenJDK 18 or Heigher, yoyu can follow this [steps](https://github.com/nasirnjs/LinuxOpsHub/blob/main/install-OpenJDK.md)
-
+```
+sudo apt install default-jdk
+java --version
+```
 ## Step 3: Install Maven
 
 Download the Maven Binaries [from here](https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz)
 
 ```bash
-wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
- tar -xvf apache-maven-3.9.9-bin.tar.gz
- mv apache-maven-3.9.9 /opt
- sudo mv apache-maven-3.9.9 /opt
- M2_HOME='/opt/apache-maven-3.9.9/'
- PATH="$M2_HOME/bin:$PATH"
+sudo apt install maven -y
+mvn -v
 ```
-**Note:** I am using zshell if you are using bash use `vim ~/.bashrc`
-
-`vim ~/.zshrc`
-
-Add the following lines to the end of the file make permanent environment variables:
-
-```bash
-export M2_HOME='/opt/apache-maven-3.9.9'
-export PATH="$M2_HOME/bin:$PATH"
-```
-
-`mvn -v` 
-
-`java --version`
-
-
 ## Step 4: Build the Backend Application
 
 God to backend project directory and run `mvn clean install -DskipTests`
-
+mvn clean package
 after making .jar file move your jar file to  "mv student-0.0.1-SNAPSHOT.jar /var/www/html"
+
 
 
 ## Step 5: Create Systemd Service for backend app
@@ -101,26 +84,18 @@ Install Node Version you can follow this [stesps](https://github.com/nasirnjs/Li
 
 Installing Node Using the Node Version Manager from [Here](https://github.com/nasirnjs/LinuxOpsHub/blob/main/install-node-via-nvode-versionmanager.md)
 
-`npm i`
+`sudo npm install -g @angular/cli`  
+`sudo apt install npm -y`  
+`sudo npm run build`  
+`sudo npm start`  
+`node --version`  
 
-`npm run build`
-
-`node --version`
-
-`sudo npm install -g @angular/cli`
-
-Navigate to your frontend project directory and run the following commands:
-
-`npm install`
-
-`npm run build`
-
-
-
-## Step 7: Move the Dist Directory to Your Nginx Web Server Root Directory
-
-```bash
-sudo mv dist /var/www/html
-ystemctl restart nginx.service
+## Step 7: Configure Your Nginx Web Server
+```
+cp -r /etc/nginx/sites-available/default /etc/nginx/sites-available/docker-student.io 
+sudo vim /etc/nginx/sites-available/docker-student.io
+sudo ln -s /etc/nginx/sites-available/docker-student.io /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
 ```
 
+/var/www/docker-student-sync/student-fe/src/app/service$ sudo vim student.service.ts
