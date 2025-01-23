@@ -91,5 +91,5 @@ sudo systemctl restart nginx
 ```
 
 ## Step 8: Update IP address for backend
-`cd /var/www/docker-student-sync/student-fe/src/app/service$ sudo vim student.service.ts`   
+`sudo vim /var/www/docker-student-sync/student-fe/src/app/service/student.service.ts`   
 `const BASIC_URL = ["http://192.168.119.129:8080/"]`   
