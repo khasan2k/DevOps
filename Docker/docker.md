@@ -49,12 +49,16 @@ Let’s Make Difference on Container & Virtualization:
 </p>
 
 ### ARCHITECTURE:
-**DOCKER CLIENT:** it’s a way of interacting with docker (command -- > op)   
-**DOCKER DAEMON:** it manages all the docker components (images, cont, volumes, nlw)   
-**DOCKER HOST:** where we installed docker   
-**DOCKER REGISTRY:** it manages all the docker images on internet.   
+**DOCKER CLIENT:** It’s a way of interacting with docker (command -- > op)   
+**DOCKER DAEMON:** It manages all the docker components (images, cont, volumes, nlw)   
+**DOCKER HOST:** Where we installed docker   
+**DOCKER REGISTRY:** It manages all the docker images on internet.   
  
 ### INSTALLATION:
+
+#### Using docker convenience script
+https://docs.docker.com/engine/install/
+
 #### For Virtualization:   
 ```
 yum update -y
@@ -105,14 +109,17 @@ sudo dnf remove docker \
 `docker kill cont1`					: to stop immediately cont1   
 `docker ps` 						: to see running containers   
 `docker ps -a`						: to see all containers   
+`docker ps -a -q`				: to list container ids   
+`docker stop $(docker ps -a -q)` 		: to stop all containers   
+`docker rm $(docker ps -a -q)` 		: to delete all containers   
+`docker images -q`			: to print image ids   
+`docker rmi -f $(docker images -q)` 	: to delete all images   
+`docker cp cl:/usr/share/nginx/html/container.txt .` : Copy from container to local system
 
-
-### OS LEVEL VIRTUALIZATION:
-**NOTE:** apt is package manager for ubuntu   
-**Redhat:** Yum   
-**Ubuntu:** Apt   
-
-without running **`apt update -y`** we can’t install packages   
+### Transfer docker image
+`docker commit container_name ym-class:99`   
+`docker save ym-class:99 | gzip > "ym-class.tar.gz"`   
+`docker load -i ym-class.tar.gz`   
 
 ### WORKING:   
 ```
@@ -127,14 +134,16 @@ docker run -it --name cont2 raham
 ```
 
 ### DOCKERFILE:
+
 ✨ It’s a way of creating images automatically.   
 ✨ We can reuse the docker file for multiple times.   
 ✨ In Dockerfile D will be Capital always.   
 ✨ Components inside the Dockerfile also Capital.   
 
-**`Dockerfile -- > Image -- > Container -- >** `
+**Dockerfile -- > Image -- > Container -- >**
 
 ### COMPONENTS:
+
 **FROM**		: to base image (gives OS)   
 **RUN**		: to execute Linux commands (image creation)   
 **CMD**			: to execute Linux commands (container creation)   
@@ -149,6 +158,7 @@ docker run -it --name cont2 raham
 **EXPOSE**		: used to give port number   
 
 #### EX: -1
+
 ```
 FROM ubuntu
 RUN apt update -y
@@ -169,6 +179,7 @@ CMD apt install default-jre -y
 **Cont:** `docker run -it --name cont4 netflix:v2`   
 
 #### EX-3:
+
 ```
 FROM ubuntu
 RUN apt update -y
@@ -176,7 +187,9 @@ RUN apt install git maven tree apache2 -y
 COPY index.html /tmp
 ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
 ```
+
 #### EX-4:
+
 ```
 FROM ubuntu
 RUN apt update -y
@@ -185,11 +198,12 @@ COPY index.html /tmp
 ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz /tmp
 WORKDIR /tmp
 LABEL author rahamshaik
-
+```
 docker inspect cont7 
 docker inspect cont7 | grep -i author
-```
+
 #### EX-5:
+
 ```
 FROM ubuntu
 RUN apt update -y
@@ -200,13 +214,14 @@ WORKDIR /tmp
 LABEL author rahamshaik
 ENV name vijay
 ENV client swiggy
-
-run commands inside container
+```
+**run commands inside container**
 echo $name
 echo $client
-```
+
 
 #### EX-6:
+
 ```
 FROM ubuntu
 RUN apt update -y
@@ -220,15 +235,10 @@ ENV client swiggy
 VOLUME ["/volume1"]
 EXPOSE 8080
 ```
-### COMMANDS:
-`docker ps -a -q`				: to list container ids   
-`docker stop $(docker ps -a -q)` 		: to stop all containers   
-`docker rm $(docker ps -a -q)` 		: to delete all containers   
-`docker images -q`			: to print image ids   
-`docker rmi -f $(docker images -q)` 	: to delete all images   
 
 =====================================================================================
 ## VOLUMES:
+
 ✨ In docker, we use volumes to store the data.   
 ✨ Volume is nothing but a folder inside a container.   
 ✨ We can share a volume from one container to another.   
@@ -242,6 +252,7 @@ EXPOSE 8080
 ### METHOD:
 
 #### 1. DOCKER FILE:
+
 ```
 FROM ubuntu
 VOLUME ["/volume1"]
@@ -258,6 +269,7 @@ ll
 ```
 
 #### 2. CLI:
+
 ```
 docker run -it --name cont3 -v /volume2 ubuntu
 cd volume2
@@ -271,6 +283,7 @@ ctrl p q
 ```
 
 #### 3. VOLUME MOUNTING:
+
 ```
 volume commands:
 docker volume create volume3
@@ -284,6 +297,7 @@ docker run -it --name cont5 --mount source=volume3,destination=/volume3 ubuntu
 ```
 
 #### 4. MOVING FILES FROM LOCAL TO CONTAINER:
+
 ```
 create a connection and attach a volume for it
 
@@ -294,6 +308,7 @@ cp * /var/lib/docker/volumes/volume4/_data
 docker attach cont6
 ```
 #### 5. 
+
 ```
 touch raham{1..10}
 cp * /home/ec2-user
@@ -311,7 +326,7 @@ docker run -it --name cont12 -v /home/ec2-user:/abcd ubuntu
 LINK: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_form_icon
 
 ### PROCESS: 
-**`CODE -- > BUILD (DOCKER FILE) -- > IMAGE -- > CONTAINER -- > APP`**
+**`CODE -- > BUILD (DOCKER FILE) -- > IMAGE -- > CONTAINER -- > APP`**   
 http://3.7.248.36:81/
 
 `vim Dockerfile`
@@ -386,8 +401,8 @@ services:
     ports:
       - "84:80"
 ```
-**Note:** remove all the containers
 
+**Note:** remove all the containers
 
 ### Commands:
 `docker-compose up -d`		: to run all services
