@@ -99,38 +99,55 @@ sudo dnf remove docker \
                   runc
 ```
 
-### Basic Commands:
-`docker version`					: Show Docker Version   
-`docker pull amazonlinux`		 		: to download image   
-`docker run -it --name cont1 amazonlinux` 	: to create container   
-`docker images`					: to list images   
-`docker start cont1`					: to start cont1   
-`docker stop cont1`					: to stop cont1   
-`docker kill cont1`					: to stop immediately cont1   
-`docker ps` 						: to see running containers   
-`docker ps -a`						: to see all containers   
-`docker ps -a -q`				: to list container ids   
-`docker stop $(docker ps -a -q)` 		: to stop all containers   
-`docker rm $(docker ps -a -q)` 		: to delete all containers   
-`docker images -q`			: to print image ids   
-`docker rmi -f $(docker images -q)` 	: to delete all images   
-`docker cp cl:/usr/share/nginx/html/container.txt .` : Copy from container to local system
+### Container Commands:
+`docker version`					                     **➺ Show Docker Version**   
+`docker pull amazonlinux`		 		            **➺ to download image**     
+`docker run --name cont1 amazonlinux` 	   **➺ to create container**   
+`docker run -p 8080:80 <image>` **➺ Publish container port 80 to host port 8080**   
+`docker run -d --name cont1 amazonlinux` 	**➺ Run a container in the background**   
+`docker run -v <host>:<container> <image>` **➺Mount a host directory to a container**   
+`docker start cont1`					              **➺ to start cont1**   
+`docker stop cont1`					               **➺ to stop cont1**   
+`docker kill cont1`					               **➺ to stop immediately cont1**   
+`docker ps` 						                     **➺ to see running containers**   
+`docker ps -a`						                   **➺ to see all containers**   
+`docker ps -a -q`				                  **➺ to list container ids**   
+`docker stop $(docker ps -a -q)` 		    **➺ to stop all containers**   
+`docker rm $(docker ps -a -q)` 		      **➺ to delete all containers**   
+`docker logs <container_name>` **➺Fetch the logs of a container**  
+`docker logs -f <container_name>`        **➺ Fetch and follow the logs of a container**   
+`docker cp cl:/usr/share/nginx/html/container.txt .` **➺ Copy from container to local system**
 
+### Executing commands in a container
+
+`docker exec <container_name> <command>` **➺ Execute a command in a running container**   
+`docker exec -it <container_name> bash` **➺ Open a shell in a running container**
+
+### Image commands
+`docker images`					                   **➺ to list images**   
+`docker build -t <image> .` **➺Build a new image from the Dockerfile in the current directory and tag it**   
+`docker images -q`		                  	**➺ to print image ids**      
+`docker rmi -f $(docker images -q)` 	  **➺ to delete all images**      
+`docker image prune`                   **➺ Delete unused images**   
+
+### Container registry commands   
+`docker login` **➺Login to Docker Hub**   
+`docker login <server>` **➺Login to another container registry**   
+`docker logout` **➺Logout of Docker Hub**   
+`docker logout <server>` **➺Logout of another container registry**   
+`docker push <image>` **➺Upload an image to a registry**   
+`docker pull <image>` **➺Download an image from a registry**   
+`docker search <image>` **➺Search Docker Hub for images**   
+ 
 ### Transfer docker image
 `docker commit container_name ym-class:99`   
 `docker save ym-class:99 | gzip > "ym-class.tar.gz"`   
-`docker load -i ym-class.tar.gz`   
+`docker load -i ym-class.tar.gz`  
 
-### WORKING:   
+### DEFAULT FILE CHANGE:
 ```
-docker pull ubuntu
-docker run -it --name cont1 ubuntu
-apt update -y
-apt install git maven apache2 tree -y
-touch file{1..5}
-
-docker commit cont1 raham
-docker run -it --name cont2 raham
+Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml   
+docker-compose -f raham.yml stop   
 ```
 
 ### DOCKERFILE:
@@ -156,6 +173,25 @@ docker run -it --name cont2 raham
 **ARGS**			: variables which run outside container(containers)   
 **VOLUME**		: used to create volume for container   
 **EXPOSE**		: used to give port number   
+
+### Instructions
+`FROM <image>` **➺Set the base image**   
+`FROM <image> AS <name>` **➺ Set the base image and name the build stage**   
+`RUN <command>` **➺ Execute a command as part of the build process**   
+`RUN ["exec", "param1", "param2"]` **➺ Execute a command as part of the build process**   
+`CMD ["exec", "param1", "param2"]` **➺ Execute a command when the container starts**   
+`ENTRYPOINT ["exec", "param1"]` **➺ Configure the container to run as an executable**   
+`ENV <key>=<value>` **➺ Set an environment variable**   
+`EXPOSE <port>` **➺ Expose a port**   
+`COPY <src> <dest>` **➺ Copy files from source to destination**   
+`COPY --from=<name>` **➺ <src> <dest> Copy files from a build stage to destination**   
+`WORKDIR <path>` **➺ Set the working directory**   
+`VOLUME <path>` **➺ Create a mount point**   
+`USER <user>` **➺ Set the user**   
+`ARG <name>` **➺ Define a build argument**   
+`ARG <name>=<default>` **➺ Define a build argument with a default value**   
+`LABEL <key>=<value>` **➺ Set a metadata label**   
+`HEALTHCHECK <command>` **➺ Set a healthcheck command**   
 
 #### EX: -1
 
@@ -199,8 +235,8 @@ ADD https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin
 WORKDIR /tmp
 LABEL author rahamshaik
 ```
-docker inspect cont7 
-docker inspect cont7 | grep -i author
+docker inspect cont7   
+docker inspect cont7 | grep -i author   
 
 #### EX-5:
 
@@ -215,8 +251,8 @@ LABEL author rahamshaik
 ENV name vijay
 ENV client swiggy
 ```
-**run commands inside container**
-echo $name
+**run commands inside container**   
+echo $name   
 echo $client
 
 
@@ -314,63 +350,20 @@ touch raham{1..10}
 cp * /home/ec2-user
 docker run -it --name cont12 -v /home/ec2-user:/abcd ubuntu
 ```
+
 ### SYSTEM COMMANDS:
 `docker system df`		: show docker components resource utilization   
 `docker system df -v`		: show docker components resource utilization individually   
 `docker system prune`	: to remove unused docker components   
 
-### JENKINS SETUP:
-`docker run -it --name cont1 -p 8080:8080 jenkins/jenkins:lts`
-
-====================================================================   
-LINK: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_form_icon
-
-### PROCESS: 
-**`CODE -- > BUILD (DOCKER FILE) -- > IMAGE -- > CONTAINER -- > APP`**   
-http://3.7.248.36:81/
-
-`vim Dockerfile`
-```
-FROM ubuntu
-RUN apt update -y
-RUN apt install apache2 -y
-COPY index.html /var/www/html
-CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
-```
-`create index.html`
-```
-docker build -t movies:v1 .
-docker run -itd --name movies -p 81:80 movies:v1
-public-ip:81 
-```
-**Note:** we can’t change port 80 (its default Apache port)
-
-#### 2. CHNAGE INDEX.HTML (MOVIES=TRAIN)
-```
-docker build -t train:v1 .
-docker run -itd --name train -p 82:80 train:v1
-public-ip:82
-```
-#### 3. CHNAGE INDEX.HTML (TRAIN=DTH)
-```
-docker build -t dth:v1 .
-docker run -itd --name dth -p 83:80 dth:v1
-public-ip:83
-```
-#### 4. CHNAGE INDEX.HTML (DTH=RECHARGE)
-```
-docker build -t recharge:v1 .
-docker run -itd --name recharge -p 84:80 recharge:v1
-public-ip:84
-```
 ## DOCKER COMPOSE:
-	it’s a tool used to launch multiple containers.   
-	we can create multiple containers on single hosts.   
-	all of the services information we are going to write on a file.   
-	here we use docker-compose/compose file.   
-	it will be on yaml format.   
-	we use key-value pair (dictionary) (.yml or .yaml)   
-	used to manage multiple services with help of a file.   
+✨	It’s a tool used to launch multiple containers.   
+✨	We can create multiple containers on single hosts.   
+✨	All of the services information we are going to write on a file.   
+✨	Here we use docker-compose/compose file.   
+✨	It will be on yaml format.   
+✨	We use key-value pair (dictionary) (.yml or .yaml)   
+✨	Used to manage multiple services with help of a file.   
 
 ### SETUP:
 ```
@@ -405,27 +398,29 @@ services:
 **Note:** remove all the containers
 
 ### Commands:
-`docker-compose up -d`		: to run all services
-`docker-compose down`		: to remove all services
-`docker-compose stop`		: to stop all services
-`docker-compose kill`			: to kill all services
-`docker-compose rm`		: to remove all services which is on stopped state
-`docker-compose start`		: to start all services
-`docker-compose pause`		: to pause all services
-`docker-compose unpause`		: to unpause all services
-`docker-compose images`		: to get all images managed by compose file
-`docker-compose ps -a`		: to get all containers managed by compose file
-`docker-compose logs`		: to get all logs managed by compose file
-`docker-compose scale dth=10`	: to create 10 containers of dth
-`docker-compose top`		: to get all process managed by containers on compose file
 
-### DEFAULT FILE CHANGE:
-```
-mv docker-compose.yml raham.yml
-docker-compose stop
-Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml
-docker-compose -f raham.yml stop
-```
+`docker compose up` **➺ Create and start containers**    
+`docker compose up -d` **➺ Create and start containers in background**    
+`docker compose up --build` **➺ Rebuild images before starting containers**    
+`docker compose stop` **➺ Stop services**    
+`docker compose down` **➺ Stop and remove containers and networks**    
+`docker-compose kill`			**➺ to kill all services**    
+`docker-compose rm`		**➺ to remove all services which is on stopped state**    
+`docker-compose start`		**➺ to start all services**    
+`docker-compose pause`		**➺ to pause all services**    
+`docker-compose unpause`		**➺ to unpause all services**    
+`docker-compose images`		**➺ to get all images managed by compose file**    
+`docker-compose ps -a`		**➺ to get all containers managed by compose file**    
+`docker compose ps` **➺ List running containers**    
+`docker compose logs` **➺ View the logs of all containers**    
+`docker compose logs <service>` **➺ View the logs of a specific service**    
+`docker compose logs -f` **➺ View and follow the logs**    
+`docker compose pull` **➺ Pull the latest images**    
+`docker compose build` **➺ Build or rebuild services**    
+`docker compose build --pull` **➺ Pull latest images before building**    
+`docker-compose scale dth=10`	**➺ to create 10 containers of dth**    
+`docker-compose top`		**➺ to get all process managed by containers on compose file**    
+
 =================================
 
 ## DOCKER HUB:
