@@ -100,36 +100,57 @@ sudo dnf remove docker \
 ```
 
 ### Container Commands:
-`docker version`					                     **➺ Show Docker Version**   
-`docker pull amazonlinux`		 		            **➺ to download image**     
-`docker run --name cont1 amazonlinux` 	   **➺ to create container**   
-`docker run -p 8080:80 <image>` **➺ Publish container port 80 to host port 8080**   
-`docker run -d --name cont1 amazonlinux` 	**➺ Run a container in the background**   
-`docker run -v <host>:<container> <image>` **➺Mount a host directory to a container**   
-`docker start cont1`					              **➺ to start cont1**   
-`docker stop cont1`					               **➺ to stop cont1**   
-`docker kill cont1`					               **➺ to stop immediately cont1**   
-`docker ps` 						                     **➺ to see running containers**   
-`docker ps -a`						                   **➺ to see all containers**   
-`docker ps -a -q`				                  **➺ to list container ids**   
-`docker stop $(docker ps -a -q)` 		    **➺ to stop all containers**   
-`docker rm $(docker ps -a -q)` 		      **➺ to delete all containers**   
-`docker logs <container_name>` **➺Fetch the logs of a container**  
-`docker logs -f <container_name>`        **➺ Fetch and follow the logs of a container**   
-`docker cp cl:/usr/share/nginx/html/container.txt .` **➺ Copy from container to local system**
+| Command | Description |
+| --- | --- |
+| docker version | **➺ Show Docker Version** |
+| docker pull amazonlinux | **➺ to download image** |
+| docker run --name cont1 amazonlinux | **➺ to create container** |
+| docker run -p 8080:80 <image> | **➺ Publish container port 80 to host port 8080** |
+| docker run -d --name cont1 amazonlinux | **➺ Run a container in the background** |
+| docker run -v <host>:<container> <image> | **➺ Mount a host directory to a container** |
+| docker start cont1 | **➺ to start cont1** |
+| docker stop cont1 | **➺ to stop cont1** |
+| docker kill cont1 |  **➺ to stop immediately cont1** |
+| docker ps | **➺ to see running containers** |
+| docker ps -a | **➺ to see all containers** |
+| docker ps -a -q | **➺ to list container ids** |
+| docker stop $(docker ps -a -q) | **➺ to stop all containers** |
+| docker rm $(docker ps -a -q) | **➺ to delete all containers** |
+| docker logs <container_name> | **➺ Fetch the logs of a container** |
+| docker logs -f <container_name> | **➺ Fetch and follow the logs of a container** |
+| docker cp cl:/usr/share/nginx/html/container.txt . | **➺ Copy from container to local system** |
 
 ### Executing commands in a container
-
-`docker exec <container_name> <command>` **➺ Execute a command in a running container**   
-`docker exec -it <container_name> bash` **➺ Open a shell in a running container**
+| Command | Description |
+| --- | --- |
+| `docker exec <container_name> <command>` | **➺ Execute a command in a running container |
+| `docker exec -it <container_name> bash` | **➺ Open a shell in a running container** |
 
 ### Image commands
-`docker images`					                   **➺ to list images**   
-`docker build -t <image> .` **➺Build a new image from the Dockerfile in the current directory and tag it**   
-`docker images -q`		                  	**➺ to print image ids**      
-`docker rmi -f $(docker images -q)` 	  **➺ to delete all images**      
-`docker image prune`                   **➺ Delete unused images**   
 
+| Command | Description |
+| --- | --- |
+| `docker images` | **➺ to list images**    |
+| `docker build -t <image> .` | **➺ to print image ids** |
+| `docker images -q` | **➺ Build a new image from the Dockerfile in the current directory and tag it**  |
+| `docker rmi -f $(docker images -q)` 	 |  **➺ to delete all images**  |
+| `docker image prune` | **➺ Delete unused images**   |
+
+
+| Command | Description |
+| --- | --- |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+				                   
 ### Container registry commands   
 `docker login` **➺Login to Docker Hub**   
 `docker login <server>` **➺Login to another container registry**   
@@ -175,6 +196,7 @@ docker-compose -f raham.yml stop
 **EXPOSE**		: used to give port number   
 
 ### Instructions
+
 `FROM <image>` **➺Set the base image**   
 `FROM <image> AS <name>` **➺ Set the base image and name the build stage**   
 `RUN <command>` **➺ Execute a command as part of the build process**   
