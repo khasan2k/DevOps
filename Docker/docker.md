@@ -123,53 +123,41 @@ sudo dnf remove docker \
 ### Executing commands in a container
 | Command | Description |
 | --- | --- |
-| `docker exec <container_name> <command>` | **➺ Execute a command in a running container |
-| `docker exec -it <container_name> bash` | **➺ Open a shell in a running container** |
+| docker exec <container_name> <command> | **➺ Execute a command in a running container** |
+| docker exec -it <container_name> bash | **➺ Open a shell in a running container** |
 
 ### Image commands
 
 | Command | Description |
 | --- | --- |
-| `docker images` | **➺ to list images**    |
-| `docker build -t <image> .` | **➺ to print image ids** |
-| `docker images -q` | **➺ Build a new image from the Dockerfile in the current directory and tag it**  |
-| `docker rmi -f $(docker images -q)` 	 |  **➺ to delete all images**  |
-| `docker image prune` | **➺ Delete unused images**   |
+| docker images | **➺ to list images**    |
+| docker build -t <image> . | **➺ to print image ids** |
+| docker images -q | **➺ Build a new image from the Dockerfile in the current directory and tag it**  |
+| docker rmi -f $(docker images -q)` 	 |  **➺ to delete all images**  |
+| docker image prune | **➺ Delete unused images**   |
 
-
+                   
+### Container registry commands  
 | Command | Description |
 | --- | --- |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-				                   
-### Container registry commands   
-`docker login` **➺Login to Docker Hub**   
-`docker login <server>` **➺Login to another container registry**   
-`docker logout` **➺Logout of Docker Hub**   
-`docker logout <server>` **➺Logout of another container registry**   
-`docker push <image>` **➺Upload an image to a registry**   
-`docker pull <image>` **➺Download an image from a registry**   
-`docker search <image>` **➺Search Docker Hub for images**   
+| docker login | **➺ Login to Docker Hub** |
+| docker login <server> | **➺ Login to another container registry** |
+| docker logout | **➺ Logout of Docker Hub**  |
+| docker logout <server> | **➺ Logout of another container registry** |
+| docker push <image> | **➺ Upload an image to a registry** |
+| docker pull <image> | **➺ Download an image from a registry** |
+| docker search <image> | **➺ Search Docker Hub for images**  |
  
 ### Transfer docker image
+
 `docker commit container_name ym-class:99`   
 `docker save ym-class:99 | gzip > "ym-class.tar.gz"`   
 `docker load -i ym-class.tar.gz`  
 
 ### DEFAULT FILE CHANGE:
-```
-Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml   
-docker-compose -f raham.yml stop   
-```
+
+**Supported filenames:** `docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml`   
+`docker-compose -f raham.yml stop`   
 
 ### DOCKERFILE:
 
@@ -197,23 +185,25 @@ docker-compose -f raham.yml stop
 
 ### Instructions
 
-`FROM <image>` **➺Set the base image**   
-`FROM <image> AS <name>` **➺ Set the base image and name the build stage**   
-`RUN <command>` **➺ Execute a command as part of the build process**   
-`RUN ["exec", "param1", "param2"]` **➺ Execute a command as part of the build process**   
-`CMD ["exec", "param1", "param2"]` **➺ Execute a command when the container starts**   
-`ENTRYPOINT ["exec", "param1"]` **➺ Configure the container to run as an executable**   
-`ENV <key>=<value>` **➺ Set an environment variable**   
-`EXPOSE <port>` **➺ Expose a port**   
-`COPY <src> <dest>` **➺ Copy files from source to destination**   
-`COPY --from=<name>` **➺ <src> <dest> Copy files from a build stage to destination**   
-`WORKDIR <path>` **➺ Set the working directory**   
-`VOLUME <path>` **➺ Create a mount point**   
-`USER <user>` **➺ Set the user**   
-`ARG <name>` **➺ Define a build argument**   
-`ARG <name>=<default>` **➺ Define a build argument with a default value**   
-`LABEL <key>=<value>` **➺ Set a metadata label**   
-`HEALTHCHECK <command>` **➺ Set a healthcheck command**   
+| Command | Description |
+| --- | --- |
+| FROM <image> | **➺Set the base image** |
+| FROM <image> AS <name> | **➺ Set the base image and name the build stage** |
+| RUN <command> | **➺ Execute a command as part of the build process** |
+| RUN ["exec", "param1", "param2"] | **➺ Execute a command as part of the build process** |
+| CMD ["exec", "param1", "param2"] | **➺ Execute a command when the container starts** |
+| ENTRYPOINT ["exec", "param1"] | **➺ Configure the container to run as an executable**  |
+| ENV <key>=<value> | **➺ Set an environment variable**  |
+| EXPOSE <port> | **➺ Expose a port** |
+| COPY <src> <dest> | **➺ Copy files from source to destination** |
+| COPY --from=<name> | **➺ <src> <dest> Copy files from a build stage to destination** |
+| WORKDIR <path> | **➺ Set the working directory** |
+| VOLUME <path> | **➺ Create a mount point** |
+| USER <user> | **➺ Set the user** |
+| ARG <name> | **➺ Define a build argument** |
+| ARG <name>=<default> | **➺ Define a build argument with a default value** |
+| LABEL <key>=<value> | **➺ Set a metadata label** |
+| HEALTHCHECK <command> | **➺ Set a healthcheck command** |
 
 #### EX: -1
 
@@ -374,9 +364,12 @@ docker run -it --name cont12 -v /home/ec2-user:/abcd ubuntu
 ```
 
 ### SYSTEM COMMANDS:
-`docker system df`		: show docker components resource utilization   
-`docker system df -v`		: show docker components resource utilization individually   
-`docker system prune`	: to remove unused docker components   
+
+| Command | Description |
+| --- | --- |
+| docker system df | **➺ show docker components resource utilization** |
+| docker system df -v | **➺ show docker components resource utilization individually** |
+| docker system prune | **➺ to remove unused docker components** |
 
 ## DOCKER COMPOSE:
 ✨	It’s a tool used to launch multiple containers.   
@@ -421,68 +414,92 @@ services:
 
 ### Commands:
 
-`docker compose up` **➺ Create and start containers**    
-`docker compose up -d` **➺ Create and start containers in background**    
-`docker compose up --build` **➺ Rebuild images before starting containers**    
-`docker compose stop` **➺ Stop services**    
-`docker compose down` **➺ Stop and remove containers and networks**    
-`docker-compose kill`			**➺ to kill all services**    
-`docker-compose rm`		**➺ to remove all services which is on stopped state**    
-`docker-compose start`		**➺ to start all services**    
-`docker-compose pause`		**➺ to pause all services**    
-`docker-compose unpause`		**➺ to unpause all services**    
-`docker-compose images`		**➺ to get all images managed by compose file**    
-`docker-compose ps -a`		**➺ to get all containers managed by compose file**    
-`docker compose ps` **➺ List running containers**    
-`docker compose logs` **➺ View the logs of all containers**    
-`docker compose logs <service>` **➺ View the logs of a specific service**    
-`docker compose logs -f` **➺ View and follow the logs**    
-`docker compose pull` **➺ Pull the latest images**    
-`docker compose build` **➺ Build or rebuild services**    
-`docker compose build --pull` **➺ Pull latest images before building**    
-`docker-compose scale dth=10`	**➺ to create 10 containers of dth**    
-`docker-compose top`		**➺ to get all process managed by containers on compose file**    
-
-=================================
+| Command | Description |
+| --- | --- |
+| docker compose up | **➺ Create and start containers**  |
+| docker compose up -d | **➺ Create and start containers in background** |
+| docker compose up --build | **➺ Rebuild images before starting containers** |
+| docker compose stop | **➺ Stop services** |
+| docker compose down | **➺ Stop and remove containers and networks** |
+| docker-compose kill | **➺ to kill all services** |
+| docker-compose rm | **➺ to remove all services which is on stopped state** |
+| docker-compose start | **➺ to start all services** |
+| docker-compose pause | **➺ to pause all services** |
+| docker-compose unpause | **➺ to unpause all services** |
+| docker-compose images | **➺ to get all images managed by compose file** |
+| docker-compose ps -a | **➺ to get all containers managed by compose file** |
+| docker compose ps | **➺ List running containers** |
+| docker compose logs | **➺ View the logs of all containers** |
+| docker compose logs <service> | **➺ View the logs of a specific service** |
+| docker compose logs -f | **➺ View and follow the logs** |
+| docker compose pull | **➺ Pull the latest images** |
+| docker compose build | **➺ Build or rebuild services** |
+| docker compose build --pull | **➺ Pull latest images before building** |
+| docker-compose scale dth=10 | **➺ to create 10 containers of dth** |
+| docker-compose top | **➺ to get all process managed by containers on compose file** |	   
 
 ## DOCKER HUB:
-	It’s a central platform used to store docker images.
-	image we create on host then we will push them to dockerhub.
-	Once image is available on dockerhub we can use in any server.
-	we use repos to store images.
-	repo types: 1. public 2. private repo
+✨	It’s a central platform used to store docker images.   
+✨	Image we create on host then we will push them to dockerhub.   
+✨	Once image is available on dockerhub we can use in any server.   
+✨	We use repos to store images.   
+✨	Repo types: 1. public 2. private repo   
 
 ### ACCOUNT:
-build a docker image with doker file.   
-docker login: username and password   
+Build a docker image with doker file.   
+**Docker login:** username and password   
 
-`docker tag image:v1 username/reponame`
+`docker tag image:v1 username/reponame`   
 `docker push username/reponame`
 
-## DOCKER SWARM:
-	High availability: deploying app on more than one server
-	means using the cluster.
-	docker swarm is a container orchestration tool.
-	it is used to manage multiple containers on multiple nodes.
-	each node will have a copy of single container.
-	here we have manager and worker nodes.
-	manager node will create containers and send to worker nodes.
-	worker nodes will take the container and manage them.
-	manager node communicates with worker node by using token.
+### DOCKER NETWORKING:
+Docker networks are used to make a communication between the multiple containers that are running on same or different docker hosts. We have different types of docker networks.   
+✨ Bridge Network   
+✨ Host Network   
+✨ None network   
+✨ Overlay network   
 
-### SETUP:
-#### 1. create 3 servers (1=manager 2=worker) (all traffic is must)
+✨	**BRIDGE NETWORK:** It is a default network that container will communicate with each other within the same host.   
+✨	**HOST NETWORK:** When you Want your container IP and ec2 instance IP same then you use host network   
+✨	**NONE NETWORK:** When you don’t Want The container to get exposed to the world, we use none network. It will not provide any network to our container.   
+✨	**OVERLAY NETWORK:** Used to communicate containers with each other across the multiple docker hosts.   
+
+| Command | Description |
+| --- | --- |
+| docker network create network_name | **➺ To create a network** |
+| docker network ls | **➺ To see the list** |
+| docker network rm network_name | **➺ To delete a network** |
+| docker network inspect network_name | **➺To inspect** |
+| docker network connect network_name container_id/name | **➺ To connect a container to the network** |
+| apt install iputils-ping -y | **➺ command to install ping checks** |
+| docker network disconnect network_name container_name | **➺ To disconnect from the container** |
+| docker network prune | **➺ To prune** |
+
+
+## DOCKER SWARM:
+✨	High availability: deploying app on more than one server   
+✨	means using the cluster.   
+✨	docker swarm is a container orchestration tool.   
+✨	it is used to manage multiple containers on multiple nodes.   
+✨	each node will have a copy of single container.   
+✨	here we have manager and worker nodes.   
+✨	manager node will create containers and send to worker nodes.   
+✨	worker nodes will take the container and manage them.   
+✨	manager node communicates with worker node by using token.   
+
+### SETUP:   
+#### 1. create 3 servers (1=manager 2=worker) (all traffic is must)   
 ```
-yum install docker -y
-systemctl start docker
-systemctl status docker
+yum install docker -y   
+systemctl start docker   
+systemctl status docker   
 ```
 #### 2. set the hostnames:
-`hostnamectl set-hostname manager/worker-1/worker-2`
+`hostnamectl set-hostname manager/worker-1/worker-2`   
 
 #### 3. generate and copy token:
-manager node: `docker swarm init`
-copy the token to all worker nodes
+manager node: `docker swarm init`   
+copy the token to all worker nodes   
 
 ### SERVICES:
 its a way of exposing the application in docker.   
@@ -527,31 +544,6 @@ docker stack deploy -c portainer-agent-stack.yml portainer
 docker ps
 public-ip of swamr master:9000
 ```
-### DOCKER NETWORKING:
-Docker networks are used to make a communication between the multiple containers that are running on same or different docker hosts. We have different types of docker networks.   
-	Bridge Network   
-	Host Network   
-	None network   
-	Overlay network   
-
-	**BRIDGE NETWORK:** It is a default network that container will communicate with each other within the same host.   
-
-	**HOST NETWORK:** When you Want your container IP and ec2 instance IP same then you use host network   
-
-	**NONE NETWORK:** When you don’t Want The container to get exposed to the world, we use none network. It will not provide any network to our container.   
-
-	**OVERLAY NETWORK:** Used to communicate containers with each other across the multiple docker hosts.   
-
-
-To create a network: docker network create network_name   
-To see the list: docker network ls   
-To delete a network: docker network rm network_name   
-To inspect: docker network inspect network_name   
-To connect a container to the network: docker network connect network_name container_id/name   
-apt install iputils-ping -y : command to install ping checks   
-To disconnect from the container: docker network disconnect network_name container_name   
-To prune: docker network prune   
-
 
 ### RESOURCE MANAGEMENT:
 Continers are going to use host resources. (cpu, mem and ram)   
