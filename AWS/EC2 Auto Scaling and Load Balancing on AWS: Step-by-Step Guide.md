@@ -1,3 +1,6 @@
+## EC2 Auto Scaling and Load Balancing on AWS: Step-by-Step Guide
+
+
 ## What is auto scaling?
 
 Auto Scaling is a service offered by Amazon Web Services (AWS) that automatically adjusts the number of instances according to the user's application demand. With auto-scaling, high availability can be achieved for an application without incurring high costs.
