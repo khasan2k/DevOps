@@ -1,5 +1,5 @@
-## EC2 Auto Scaling and Load Balancing on AWS: Step-by-Step Guide
-
+![Configure the VPC](https://github.com/khasan2k/DevOps/blob/main/Images/new%20arrival%20(1).png)
+# EC2 Auto Scaling and Load Balancing on AWS: Step-by-Step Guide
 
 ## What is auto scaling?
 
