@@ -49,7 +49,7 @@ spec:
 ```
 
 1. Create the Deployment by running the following command:   
- `kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml`
+ `kubectl apply -f nginx-deployment.yaml`
 
 2. Run `kubectl get deployments` to check if the Deployment was created
 
