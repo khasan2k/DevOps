@@ -23,6 +23,39 @@ To create a Deployment imperatively (using imperative commands) for nginx.\
 Optionally, you can generate the Deployment manifest.\
 `kubectl run deployment nginx-deployment --image=nginx:1.14.2 --replicas=3 --dry-run=client -o yaml`
 
+### Declarative way to Creating a Deployment
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+```
+
+1. Create the Deployment by running the following command:   
+ `kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml`
+
+2. Run `kubectl get deployments` to check if the Deployment was created
+
+3. Get details of your Deployment:   
+  `kubectl describe deployments`
+
 ## Updating nginx-deployment deployment
 Let's update the nginx Pods to use the nginx:1.16.1 image instead of the nginx:1.14.2 image.\
 `kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1`
