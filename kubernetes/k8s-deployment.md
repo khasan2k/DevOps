@@ -75,7 +75,7 @@ Get the description of the Deployment.\
 
 
 ## Scaling a Deployment
-You can scale a Deployment by using the following command.
+You can scale a Deployment by using the following command.   
 `kubectl scale deployment/nginx-deployment --replicas=10`
 
 
@@ -107,9 +107,10 @@ If you don't specify maxUnavailable and maxSurge, Kubernetes will apply these de
 
 
 
-================================================
-FILE: 2-k8s-deployment/nginx-deployment.yaml
-================================================
+===========================================
+### k8s-deployment/nginx-deployment.yaml
+===========================================
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -141,12 +142,13 @@ spec:
     targetPort: 80
   selector:
     app: webapp
-
+```
 
 
 ================================================
-FILE: 2-k8s-deployment/nginx-deploymnet-startegy.yaml
+### k8s-deployment/nginx-deploymnet-startegy.yaml
 ================================================
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -174,3 +176,4 @@ spec:
        ports:
        - containerPort: 80
 
+```
