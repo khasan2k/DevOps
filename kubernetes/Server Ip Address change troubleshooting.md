@@ -6,11 +6,12 @@ First, check and update the API server configuration:
 ```
 sudo vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
-## 2. Update kubelet Configuration
-Edit the kubelet configuration:
+
+## 2. Update kubeconfig Files
+Update all kubeconfig files that reference the old IP:
 
 ```
-sudo vim /etc/kubernetes/kubelet.conf
+sudo find /etc/kubernetes/ -name "*.conf" -exec sed -i "s/<OLD_IP>/<NEW_IP>/g" {} \;
 ```
 
 ## 3. Regenerate Certificates (if needed)
@@ -20,12 +21,7 @@ If your certificates were bound to the old IP, you may need to regenerate them:
 sudo kubeadm init phase certs all --apiserver-advertise-address <NEW_IP>
 ```
 
-## 4. Update kubeconfig Files
-Update all kubeconfig files that reference the old IP:
 
-```
-sudo find /etc/kubernetes/ -name "*.conf" -exec sed -i "s/<OLD_IP>/<NEW_IP>/g" {} \;
-```
 
 ## 5. Update kubeconfig Files
 Update your user kubeconfig:
