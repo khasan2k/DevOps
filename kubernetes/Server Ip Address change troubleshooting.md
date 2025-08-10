@@ -54,7 +54,6 @@ sudo kubeadm certs renew all --config=/etc/kubernetes/kubeadm-config.yaml
 ## 9. Update All Components
 ```
 sudo kubeadm init phase control-plane all --apiserver-advertise-address=<NEW_IP>
-sudo kubeadm init phase kubeconfig all --apiserver-advertise-address=<NEW_IP>
 ```
 
 ## 10. Manually verify certificate SANs
