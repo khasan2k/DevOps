@@ -4,13 +4,13 @@
 ## 1. Update kube-apiserver Configuration
 First, check and update the API server configuration:
 ```
-sudo vi /etc/kubernetes/manifests/kube-apiserver.yaml
+sudo vim /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
 ## 2. Update kubelet Configuration
 Edit the kubelet configuration:
 
 ```
-sudo vi /etc/kubernetes/kubelet.conf
+sudo vim /etc/kubernetes/kubelet.conf
 ```
 
 ## 3. Regenerate Certificates (if needed)
