@@ -118,7 +118,7 @@ sudo dnf remove docker \
 | docker rm $(docker ps -a -q) | **➺ to delete all containers** |
 | docker logs <container_name> | **➺ Fetch the logs of a container** |
 | docker logs -f <container_name> | **➺ Fetch and follow the logs of a container** |
-| docker cp cl:/usr/share/nginx/html/container.txt . | **➺ Copy from container to local system** |
+| docker cp <container_name>:/usr/share/nginx/html/container.txt .(Current Folder) | **➺ Copy from container to local system** |
 
 ### Executing commands in a container
 | Command | Description |
