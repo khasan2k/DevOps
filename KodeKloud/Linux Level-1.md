@@ -51,3 +51,27 @@ group::r--
 mask::r--
 other::r--
 ````
+
+## Task 11: String Replacement
+### Problem:
+At xFusionCorp Industries, the Stratos Datacenter houses a jump host server that stores template XML files essential for the Nautilus application. Prior to their use, these files need to be populated with valid data. As part of regular maintenance, the system administration team utilizes various string and file manipulation commands to prepare these templates.   
+
+Your task is to substitute all occurrences of the string Random with LUSV within the XML file located at /root/nautilus.xml on the jump host server.   
+Stratos Datacenter-এর Jump Host Server-এ /root/nautilus.xml নামে একটি XML template file আছে।
+এই template-এ placeholder হিসেবে Random শব্দটি ব্যবহার করা হয়েছে।
+
+### Solution:
+#### 1. String Replace
+```
+sed -i 's/Random/LUSV/g' /root/nautilus.xml
+```
+#### 2. Check
+```
+grep Random /root/nautilus.xml
+```
+
+
+
+
+
+
