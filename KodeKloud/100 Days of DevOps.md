@@ -102,6 +102,81 @@ psql -U appuser -d appdb -h localhost
 ```
 Password চাইবে → apppass   
 
+## Day 19: Install and Configure Web Application
+
+xFusionCorp Industries is planning to host two static websites on their infra in Stratos Datacenter. The development of these websites is still in-progress, but we want to get the servers ready. Please perform the following steps to accomplish the task: 
+- a. Install httpd package and dependencies on app server 3.
+- b. Apache should serve on port 3003.
+- c. There are two website's backups /home/thor/blog and /home/thor/apps on jump_host. Set them up on Apache in a way that blog should work on the link http://localhost:3003/blog/ and apps should work on link http://localhost:3003/apps/ on the mentioned app server.
+- d. Once configured you should be able to access the website using curl command on the respective app server, i.e curl http://localhost:3003/blog/ and curl http://localhost:3003/apps/
+
+### Step 1: Access App Server 2
+```
+ssh steve@stapp02
+```
+### Step 2: Install Apache (httpd)
+```
+sudo yum install -y httpd
+```
+Enable and start the service:
+```
+sudo systemctl enable httpd
+sudo systemctl start httpd
+```
+### Step 3. Change Apache to Listen on Port 5004
+Edit the main Apache config file:
+```
+sudo vi /etc/httpd/conf/httpd.conf
+```
+Look for the line:
+```
+Listen 80
+```
+And change it to:
+```
+Listen 5004
+```
+### Step 4. Copy Website Backups from Jump Host to App Server 2
+
+On jump_host, copy the two folders to stapp02:
+```
+scp -r /home/thor/official steve@stapp02:/tmp/
+scp -r /home/thor/apps steve@stapp02:/tmp/
+```
+Now SSH back to App Server 2:
+```
+ssh steve@stapp02
+```
+Then move the two folders into Apache’s web root:
+```
+sudo mv /tmp/official /var/www/html/
+sudo mv /tmp/apps /var/www/html/
+```
+### Step 5. Configure Apache for Virtual Directories
+Open the Apache config again:
+```
+sudo vi /etc/httpd/conf/httpd.conf
+At the bottom of the document add this line:
+
+<VirtualHost *:5004>
+    DocumentRoot /var/www/html
+    <Directory "/var/www/html">
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+Since the folders /var/www/html/official and /var/www/html/apps already exist, Apache will automatically serve them as subdirectories:
+```
+http://localhost:5004/official/
+http://localhost:5004/apps/
+```
+### Step 7. Test with Curl
+```
+curl http://localhost:5004/official/
+curl http://localhost:5004/apps/
+```
+You should be able to see the index content of each site
 
 
 
