@@ -29,11 +29,11 @@ Others = r--
 ```   
 #### 3️⃣ User mark এর সব permission remove করুন
 ```
-sudo setfacl -x u:mark /etc/hosts
+sudo setfacl -m u:mark:--- /etc/hosts
 ```
 #### 4️⃣ User eric কে read permission দিন
 ```
-sudo setfacl -m u:eric:r /etc/hosts
+sudo setfacl -m u:eric:r-- /etc/hosts
 ```
 #### 5️⃣ Verify করুন
 ```
