@@ -178,13 +178,105 @@ curl http://localhost:5004/apps/
 ```
 You should be able to see the index content of each site
 
+## Day 20 — Configure Nginx + PHP-FPM Using Unix Sock
+### Task Description
 
+The Nautilus application development team is planning to launch a new PHP-based application, which they want to deploy on Nautilus infra in Stratos DC. The development team had a meeting with the production support team and they have shared some requirements regarding the infrastructure. Below are the requirements they shared:
 
+a. Install nginx on app server 2 , configure it to use port 8096 and its document root should be /var/www/html.   
+b. Install php-fpm version 8.1 on app server 2, it must use the unix socket /var/run/php-fpm/default.sock (create the parent directories if don't exist).   
+c. Configure php-fpm and nginx to work together.   
+d. Once configured correctly, you can test the website using curl http://stapp02:8096/index.php command from jump host.   
+NOTE: We have copied two files, index.php and info.php, under /var/www/html as part of the PHP-based application setup. Please do not modify these files.   
 
+### Step-by-Step Solution:
 
+#### Step 1 — Connect to App Server 2
+```
+ssh steve@stapp02
+```
+#### Step 2 — Install nginx
+yum install -y nginx
+Press enter or click to view image in full size
 
+#### Step 3 — Configure Nginx
+Open the main configuration file:
+```
+vi /etc/nginx/nginx.conf
+server {
+    listen 8096;
+    root /var/www/html;
+    index index.php index.html;
 
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/var/run/php-fpm/default.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
+**Explanation:**   
+listen 8096; → Nginx will run on port 8096   
+root /var/www/html; → The document root   
+fastcgi_pass unix:/var/run/php-fpm/default.sock; → Sends PHP requests to the PHP-FPM socket   
+#### Step 4 — Update the system and install repositories
+```
+dnf update -y sudo dnf upgrade -y
+```
+##### Install the EPEL and Remi repositories:
+```
+dnf install -y epel-release
+dnf install -y http://rpms.remirepo.net/enterprise/remi-release-$(rpm -E %rhel).rpm
+dnf install -y dnf-utils
+```
+#### Step 5 — Install PHP 8.1-FPM
 
+Reset the default PHP module stream:
+```
+dnf module reset php
+```
+##### Install PHP 8.2 and the php-fpm package from the Remi repository:
+```
+dnf module install php:remi-8.1
+dnf install php-fpm -y
+```
+#### Step 6 — Verify the installation
+```
+php -v
+```
+#### Step 7 — Configure PHP-FPM
+
+Edit the pool configuration:
+```
+vi /etc/php-fpm.d/www.conf
+```
+Set the following:
+```
+listen = /var/run/php-fpm/default.sock
+listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660
+
+user = nginx
+group = nginx
+```
+Now, create the socket directory:
+```
+mkdir -p /var/run/php-fpm/
+chown nginx:nginx -R /var/run/php-fpm/
+```
+#### Step 8 — Start and enable the services
+
+Start the services:
+```
+systemctl restart php-fpm
+systemctl restart nginx
+```
+2. Enable the services to start automatically on boot:
+```
+systemctl enable php-fpm --now
+systemctl enable nginx --now
+```
 
 
 
