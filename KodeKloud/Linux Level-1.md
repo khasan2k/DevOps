@@ -71,6 +71,55 @@ sed -i 's/Random/LUSV/g' /root/nautilus.xml
 grep Random /root/nautilus.xml
 ```
 
+## Task 13: Restrict Cron Access
+Allow crontab access to ravi user while denying access to the ryan user.   
+
+### solution
+Linux এ crontab access control করা হয় দুইটি ফাইল দিয়ে:   
+```
+/etc/cron.allow
+/etc/cron.deny
+```
+#### 1️⃣ cron.allow ফাইল তৈরি করুন
+```
+sudo vi /etc/cron.allow
+```
+ফাইলে লিখুন:   
+```
+ravi
+```
+
+#### 2️⃣ cron.deny তে ryan add করুন
+```
+sudo vi /etc/cron.deny
+```
+
+Add করুন:   
+```
+ryan
+```
+#### 🔎 Verify
+
+User switch করে test করতে পারেন।   
+```
+su - ravi
+crontab -l
+```
+
+Allowed হবে।
+```
+su - ryan
+crontab -l
+```
+
+Output আসবে:   
+
+`You are not allowed to use this program`   
+
+
+
+
+
 
 
 
