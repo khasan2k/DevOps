@@ -66,3 +66,98 @@ Check new bucket:
 ```
 aws s3 ls s3://xfusion-sync-18131 --recursive
 ```
+
+## Task Day 29: Establishing Secure Communication Between Public and Private VPCs via VPC Peering
+
+The Nautilus DevOps team has been tasked with demonstrating the use of VPC Peering to enable communication between two VPCs. One VPC will be a private VPC that contains a private EC2 instance, while the other will be the default public VPC containing a publicly accessible EC2 instance. 
+1) There is already an existing EC2 instance in the public vpc/subnet: Name: nautilus-public-ec2
+2)  2) There is already an existing Private VPC: Name: nautilus-private-vpc CIDR: 10.1.0.0/16
+3) There is already an existing Subnet in nautilus-private-vpc: Name: nautilus-private-subnet CIDR: 10.1.1.0/24
+4) There is already an existing EC2 instance in the private subnet: Name: nautilus-private-ec2
+5) Create a Peering Connection between the Default VPC and the Private VPC: VPC Peering Connection Name: nautilus-vpc-peering
+6) Configure Route Tables to enable communication between the two VPCs. Ensure the private EC2 instance is accessible from the public EC2 instance.
+7) Test the Connection: Add /root/.ssh/id_rsa.pub public key to the public EC2 instance's ec2-user's authorized_keys to make sure we are able to ssh into this instance from AWS client host. You may also need to update the security group of the private EC2 instance to allow ICMP traffic from the public/default VPC CIDR. This will enable you to ping the private instance from the public instance.   
+    SSH into the public EC2 instance and ensure that you can ping the private EC2 instance.
+
+### Solution: 
+এই lab-এ আপনাকে Amazon Virtual Private Cloud ব্যবহার করে VPC Peering configure করতে হবে যাতে public VPC থেকে private VPC-র EC2 instance-এ ping করা যায়।   
+আমি step-by-step দিচ্ছি 👇
+
+#### 1️⃣ VPC Peering Connection তৈরি করুন
+
+`AWS Console → VPC → Peering Connections → Create Peering Connection`
+#### Details
+**Name:** nautilus-vpc-peering   
+**Requester VPC:** Default VPC   
+**Accepter VPC:** nautilus-private-vpc   
+তারপর Actions → Accept request করুন।
+
+#### 2️⃣ Route Table Configure করুন
+
+দুই VPC-তেই route add করতে হবে।
+
+#### Public VPC Route Table
+
+`VPC → Route Tables → default VPC route table edit করুন।`
+
+#### Add route:
+
+**Destination:** 10.1.0.0/16   
+**Target:** nautilus-vpc-peering
+
+#### Private VPC Route Table
+nautilus-private-vpc এর route table edit করুন।
+#### Add route:
+**Destination:** <Default VPC CIDR>   
+**Target:** nautilus-vpc-peering
+
+##### Default VPC CIDR সাধারণত:
+`172.31.0.0/16`
+
+#### 3️⃣ Security Group Update করুন
+
+`Private EC2 instance (nautilus-private-ec2) এর security group edit করুন।`
+
+#### Add inbound rule:
+
+**Type:** ICMP - IPv4   
+**Source:** Default VPC CIDR (example 172.31.0.0/16)   
+এটা ping allow করবে।
+
+#### 4️⃣ Public EC2 তে SSH Key Add করুন
+
+AWS client host থেকে public key copy করুন।
+```
+cat /root/.ssh/id_rsa.pub
+```
+
+Public EC2 এ login করুন:
+```
+ssh ec2-user@<public-ec2-ip>
+```
+
+তারপর:
+```
+mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys
+```
+Public key paste করুন।   
+
+#### Permission fix করুন:
+```
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+#### 5️⃣ Public EC2 থেকে Private EC2 Ping Test
+
+#### Public EC2 এ login করুন:
+```
+ssh ec2-user@<public-ec2-ip>
+```
+#### Private EC2 IP check করুন:
+```
+ping <private-ec2-private-ip>
+```
+যদি সব ঠিক থাকে, ping reply আসবে।
+
+
